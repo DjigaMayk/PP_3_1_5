@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        input[type="submit"],
+        a {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            background-color: #007bff;
+            margin-left: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="name">Enter name</label>
+    <input type="text" th:field="*{firstName}" id="name">
+
+    <label for="lastName">Enter lastName</label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+
+    <label for="age">Enter age</label>
+    <input type="text" th:field="*{age}" id="age">
+
+    <label for="password">Enter password</label>
+    <input type="text" th:field="*{password}" id="password">
+
+    <div class="button-container">
+        <input type="submit" value="Update"/>
+        <a href="/admin/{id}/change-password" th:href="@{/admin/{id}/change-password(id=${user.getId()})}">Change Password</a>
+        <a href="/logout">Logout</a>
+    </div>
+</form>
+</body>
+</html>

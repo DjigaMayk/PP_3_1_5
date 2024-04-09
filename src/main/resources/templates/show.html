@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .user-details {
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: inline;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        .logout-link {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }
+
+        .field-separator {
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        .password-field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .password-toggle {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="user-details">
+    <p><strong>First Name:</strong> <span th:text="${user.getFirstName()}"></span></p>
+    <div class="field-separator"></div>
+    <p><strong>Last Name:</strong> <span th:text="${user.getLastName()}"></span></p>
+    <div class="field-separator"></div>
+    <div class="password-field">
+        <strong>Password:</strong>
+        <span th:text="${user.getPassword()}" id="password"></span>
+    </div>
+    <div class="field-separator"></div>
+    <p><strong>Age:</strong> <span th:text="${user.getAge()}"></span></p>
+    <div class="field-separator"></div>
+    <a th:href="@{/admin/{id}/edit(id=${user.getId()})}" class="edit-link">Edit</a>
+
+    <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}" class="delete-form">
+        <input type="submit" value="Delete"/>
+    </form>
+    <br/>
+    <a href="/logout" class="logout-link">Logout</a>
+</div>
+
+</body>
+</html>

@@ -1,11 +1,70 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .logout-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .logout-link a {
+            color: #dc3545;
+        }
+
+        .logout-link a:hover {
+            color: #c82333;
+        }
+    </style>
 </head>
+
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<div class="container">
+    <h1>User Profile</h1>
+    <p><strong>Username:</strong> <span th:text="${#authentication.getName()}"></span></p>
+    <p><strong>Last Name:</strong> <span th:text="${#authentication.principal.user.lastName}"></span></p>
+    <p><strong>Age:</strong> <span th:text="${#authentication.principal.user.age}"></span></p>
+    <div class="logout-link">
+        <a href="/logout">Logout</a>
+    </div>
+</div>
 </body>
 </html>
