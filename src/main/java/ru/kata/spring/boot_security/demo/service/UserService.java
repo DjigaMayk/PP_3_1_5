@@ -13,7 +13,8 @@ public interface UserService {
     List<User> getAllPersons();
     void changePersonById(int id, User user);
     void deletePersonById(int id);
-    void changePassword(int userId, String newPassword);
+    public void changePassword(int userId, String newPassword);
+
 
 
 }
