@@ -25,9 +25,8 @@ public class UserController {
 
     @GetMapping("/user")
     public String user(Model model, Principal principal) {
-        String username = principal.getName();
-        User user = userRepository.findByFirstName(username)
-                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+        User user = userRepository.findByFirstName(principal.getName())
+                .orElseThrow(() -> new RuntimeException("User not found: "));
         model.addAttribute("user", user);
         return "user";
     }
