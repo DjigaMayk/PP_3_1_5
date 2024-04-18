@@ -1,10 +1,9 @@
 package ru.kata.spring.boot_security.demo.model;
 
-
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
@@ -12,44 +11,28 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "name")
+    @Column(unique = true)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Transient
+    @ManyToMany(mappedBy = "role")
+    private List<User> users;
 
-    public Role(String role) {
-        this.name = role;
+    public Role(String name) {
+        this.name = name;
     }
 
     public Role() {
     }
 
-    public String getRole() {
-        return name;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setRole(String role) {
-        this.name = role;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -60,10 +43,25 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    @Override
-    public String getAuthority() {
-        return "ROLE_" + name;
+    public List<User> getUsers() {
+        return users;
     }
 
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
+
+    @Override
+    public String toString() {
+        if (name.equals("ROLE_ADMIN")) {
+            return "ADMIN";
+        } else {
+            return "USER";
+        }
+    }
 }

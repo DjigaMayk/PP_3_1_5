@@ -1,26 +1,18 @@
 package ru.kata.spring.boot_security.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
-import java.util.Optional;
-
 
 @Repository
-public interface UsersRepository extends JpaRepository<User, Integer> {
+public interface UsersRepository extends JpaRepository<User, Long> {
 
-    @Query("Select u from User u left join fetch u.roles where u.firstName=:name")
-    Optional<User> findByFirstName(String name);
+    @Query("SELECT u FROM User u JOIN FETCH u.roles where u.username = :username")
+    User findByUsername(@Param("username") String username);
 
-    @Modifying
-    @Query("UPDATE User person SET person.firstName = :#{#person.firstName}, person.lastName = :#{#person.lastName}, person.age = :#{#person.age} WHERE person.id = :id")
-    void updateUserById(@Param("id") int id, @Param("person") User user);
+    @Query("SELECT u FROM User u JOIN FETCH u.roles where u.email = :email")
+    User findByEmail(@Param("email") String email);
 }
-
-
-
-
